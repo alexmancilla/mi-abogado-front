@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.mi-abogado-front"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +26,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "@react-native-voice/voice",
+        {
+          "microphonePermission": "CUSTOM: Permite que  $(PRODUCT_NAME) acceder al microfono",
+          "speechRecognitionPermission": "CUSTOM: Permite $(PRODUCT_NAME) reconocer de forma segura la voz del usuario"
+        }
+      ]
+    ]
   }
 }

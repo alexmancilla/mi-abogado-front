@@ -1,0 +1,46 @@
+1. Create assistant 
+POST
+const assistant = await openai.beta.assistants.create({
+      instructions: 
+      "Eres un abogado que interpretara las leyes en el documento adjuntado. 
+        Y responderás a las preguntas que te hagan explicando como se 
+        aplica los artículos de la constitución.",
+      name: "Abogado",
+      tools: [{ type: "retrieval" }],
+      model: "gpt-4-1106-preview",
+      file_ids=[file-hpZld5JXEHzPTWPh6ZxB3GLe]
+    });
+
+2. Create thread 
+POST
+const thread = await openai.beta.threads.create();
+
+3. Create message
+POST
+
+const threadMessages = await openai.beta.threads.messages.create(
+    thread.id,
+    { role: "user", content: content}
+  );
+
+4.Create run
+POST
+const run = await openai.beta.threads.runs.create(
+    thread.id,
+    { assistant_id: "asst_j6IMdxjPBMaPooXfeOfnVvej" }
+  );
+5. retrieve run
+const run = await openai.beta.threads.runs.retrieve(
+    thread.id,
+    run.id
+  );
+
+
+
+// Get the last assistant message from the messages array
+const messages = await openai.beta.threads.messages.list(thread.id);
+
+ const lastMessageForRun = messages.data.filter((message) => message.run_id === run.id && message.role === "assistant").pop();
+
+return lastMessageForRun.content[0].text.value
+
